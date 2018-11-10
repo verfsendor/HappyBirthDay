@@ -13,7 +13,7 @@ public class LogUtil {
     private static final String TAG = "wdw";
     private static final boolean DEBUG = BuildConfig.DEBUG;
 
-    private static int LOG_MAXLENGTH = 2000;
+    private static int LOG_MAXLENGTH = 4000;
 
     public static void d(String msg) {
         if (DEBUG) {

@@ -6,18 +6,19 @@ import android.graphics.Paint;
 import android.graphics.Picture;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.Surface;
+import android.view.SurfaceView;
 import android.view.View;
 import com.test.demos.happybirthday.data.PositionBean;
 import com.test.demos.happybirthday.data.DataManager;
 
-public class DrawRecorderView extends View {
+public class DrawRecorderView extends SurfaceView {
     PositionBean lastPosition;
     PositionBean nowPosition;
-    Picture picture;
     Picture picture1;
     Picture picture2;
-    int i =1;
     boolean showPicture2;
     Paint paint;
     public DrawRecorderView(Context context) {
@@ -39,7 +40,7 @@ public class DrawRecorderView extends View {
         picture1 = new Picture();
         picture2 = new Picture();
         paint = new Paint();
-        paint.setStrokeWidth(5f);
+        paint.setStrokeWidth(8f);
         paint.setTextSize(30);
         paint.setColor(Color.parseColor("#234567"));
         paint.setAntiAlias(true);
@@ -61,6 +62,8 @@ public class DrawRecorderView extends View {
             case MotionEvent.ACTION_DOWN:
                 lastPosition = new PositionBean(event.getX(),event.getY());
                 nowPosition = new PositionBean(event.getX(),event.getY());
+                nowPosition.setTime(System.currentTimeMillis());
+                lastPosition.setTime(System.currentTimeMillis());
                 break;
             case MotionEvent.ACTION_MOVE:
                 if(nowPosition != null) {
@@ -81,7 +84,7 @@ public class DrawRecorderView extends View {
         if(lastPosition != null) {
             float x = valuex - lastPosition.getX();
             float y = valuey - lastPosition.getY();
-            if (Math.sqrt(x * x + y * y) < 2){
+            if (Math.sqrt(x * x + y * y) < 10){
                 return false;
             }
         }
@@ -101,6 +104,7 @@ public class DrawRecorderView extends View {
         if(lastPosition != null && nowPosition != null) {
             lastPosition.setX(nowPosition.getX());
             lastPosition.setY(nowPosition.getY());
+            lastPosition.setTime(nowPosition.getTime());
         }
     }
 

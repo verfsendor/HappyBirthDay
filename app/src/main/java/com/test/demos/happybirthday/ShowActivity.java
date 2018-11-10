@@ -1,6 +1,8 @@
 package com.test.demos.happybirthday;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,7 +19,6 @@ public class ShowActivity extends AppCompatActivity {
     Button show;
     TextView tvTxt;
     Thread thread = new Thread(){
-        long lastTime = 0;
         PositionBean bean;
         @Override
         public void run() {
@@ -37,9 +38,6 @@ public class ShowActivity extends AppCompatActivity {
                             while (DataManager.wait){
                                 sleep(10);
                             }
-                            if (lastTime > 100) {
-                                sleep(bean.getTime() - lastTime);
-                            }
                             autoDrawTextView.showPoint(PositionBean.clone(bean));
                             DataManager.wait = true;
                         } catch (InterruptedException e) {
@@ -50,6 +48,7 @@ public class ShowActivity extends AppCompatActivity {
             }
         }
     };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

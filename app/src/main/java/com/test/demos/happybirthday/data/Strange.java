@@ -5,6 +5,9 @@ import java.util.ArrayList;
 public class Strange implements Serializable {
     private String key;
     private ArrayList<PositionBean> positionBeans;
+    private float scalue = -1;
+    private float startXScalue = -1;
+    private float startYScalue = -1;
 
     public Strange(){
         positionBeans = new ArrayList<>();
@@ -32,5 +35,29 @@ public class Strange implements Serializable {
 
     public void setPositionBeans(ArrayList<PositionBean> positionBeans) {
         this.positionBeans = positionBeans;
+    }
+
+    public float getScalue() {
+        return scalue;
+    }
+
+    public void setScalue(float scalue) {
+        this.scalue = scalue;
+    }
+
+    public float getStartXScalue() {
+        return startXScalue;
+    }
+
+    public void setStartXScalue(float startXScalue) {
+        this.startXScalue = startXScalue;
+    }
+
+    public float getStartYScalue() {
+        return startYScalue;
+    }
+
+    public void setStartYScalue(float startYScalue) {
+        this.startYScalue = startYScalue;
     }
 }

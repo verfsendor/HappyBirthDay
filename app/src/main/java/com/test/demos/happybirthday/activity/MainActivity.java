@@ -1,10 +1,13 @@
-package com.test.demos.happybirthday;
+package com.test.demos.happybirthday.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.test.demos.happybirthday.R;
+import com.test.demos.happybirthday.ShowActivity;
 import com.test.demos.happybirthday.data.DataManager;
 import com.test.demos.happybirthday.view.DrawRecorderView;
 
@@ -35,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataManager.addStrange(key.getText().toString().trim());
                 drawRecorderView.refreshRecord();
+                key.setText("");
+                DataManager.strange = null;
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ShowActivity.class));
+                startActivity(new Intent(MainActivity.this, ShowActivity1.class));
             }
         });
     }

@@ -15,14 +15,20 @@ import com.test.demos.happybirthday.data.DataManager;
 import com.test.demos.happybirthday.data.PositionBean;
 
 public class AutoDrawTextView extends View {
+    /**
+     * 比例和布局排放相关
+     */
+    private final int PER_WIDTH = 200;
+    private final int PER_HEIGHT = 200;
     PositionBean lastPosition;
     PositionBean nowPosition;
-    Picture picture;
     Picture picture1;
     Picture picture2;
-    int i =1;
+    private float startX = 0;
+    private float startY = 0;
     boolean showPicture2;
     Paint paint;
+
     public AutoDrawTextView(Context context) {
         super(context);
         init();
@@ -101,8 +107,13 @@ public class AutoDrawTextView extends View {
                 canvas.drawPicture(picture2);
             }
             if(lastPosition != null && nowPosition != null && !nowPosition.isStart()){
-                canvas.drawLine(lastPosition.getX(),lastPosition.getY(), nowPosition.getX(), nowPosition.getY(), paint);
+                if(nowPosition.getStartx() != -1){
+                    canvas.drawLine(nowPosition.getStartx() + lastPosition.getX(),nowPosition.getY() + lastPosition.getY(), nowPosition.getStartx() + nowPosition.getX(), nowPosition.getY() + nowPosition.getY(), paint);
+                }else {
+                    canvas.drawLine(startX + lastPosition.getX(),startY + lastPosition.getY(), startX + nowPosition.getX(), startY + nowPosition.getY(), paint);
+                }
             }
+
             picture1.endRecording();
         }
         if(showPicture2){
@@ -111,20 +122,39 @@ public class AutoDrawTextView extends View {
                 canvas.drawPicture(picture1);
             }
             if(lastPosition != null && nowPosition != null && !nowPosition.isStart()){
-                canvas.drawLine(lastPosition.getX(),lastPosition.getY(), nowPosition.getX(), nowPosition.getY(), paint);
+                if(nowPosition.getStartx() != -1){
+                    canvas.drawLine(nowPosition.getStartx() +lastPosition.getX(),nowPosition.getY() + lastPosition.getY(), nowPosition.getStartx() + nowPosition.getX(), nowPosition.getY() + nowPosition.getY(), paint);
+                }else {
+                    canvas.drawLine(startX +lastPosition.getX(),startY + lastPosition.getY(), startX + nowPosition.getX(), startY + nowPosition.getY(), paint);
+                }
             }
             picture2.endRecording();
         }
     }
 
 
-    public void showPoint(final PositionBean positionBean){
-        Log.v("verf","postInvaliData1 " + positionBean.getX() + " " + positionBean.getY());
+    public void showPoint(PositionBean positionBean){
+        Log.v("verf","view画点1 " + positionBean.getX() + " " + positionBean.getY());
         lastPosition = nowPosition;
         nowPosition = positionBean;
-        Log.v("verf","postInvaliData2 " + positionBean.getX() + " " + positionBean.getY());
+        Log.v("verf","view画点2 " + positionBean.getX() + " " + positionBean.getY());
+        if(nowPosition.isCharacterStart() && lastPosition != null && lastPosition.getStartx() == -1){
+            startX = startX + DataManager.windowWidth * lastPosition.getScaluex()/100;
+            if((startX + DataManager.windowWidth * nowPosition.getScaluex()/100) > DataManager.windowWidth){
+                startY = startY + DataManager.windowHeight * lastPosition.getScaluey()/100 - 50;
+                startX = 0;
+            }
+        }
 //        invalidate();
         postInvalidate();
     }
 
+    public void setPaint(int alpha, String color){
+       paint.setAlpha(alpha);
+       paint.setColor(Color.parseColor(color));
+    }
+    public void resetPaint(int alpha, int color){
+        paint.setAlpha(100);
+        paint.setColor(Color.parseColor("#000000"));
+    }
 }
