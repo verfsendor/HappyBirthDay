@@ -16,6 +16,7 @@ public class CharacterManager {
         strangeHashMap = new HashMap<>();
         strangesBean = new StrangesBean();
         Character1.init();
+        Character2.init();
     }
 
     public static void addStrange(Strange strange){
@@ -23,9 +24,9 @@ public class CharacterManager {
             return;
         }
         strangesBean.getStrangeArrayList().add(strange);
-        LogUtil.v("verf","所有的数据：***** " + strangesBean.getStrangeArrayList().size() + " "
-                + strangesBean.getStrangeArrayList().get(strangesBean.getStrangeArrayList().size() - 1).getKey() + " "
-                + new Gson().toJson(strangesBean));
+//        LogUtil.v("verf","所有的数据：***** " + strangesBean.getStrangeArrayList().size() + " "
+//                + strangesBean.getStrangeArrayList().get(strangesBean.getStrangeArrayList().size() - 1).getKey() + " "
+//                + new Gson().toJson(strangesBean));
         strangeHashMap.put(strange.getKey(),strange);
     }
 

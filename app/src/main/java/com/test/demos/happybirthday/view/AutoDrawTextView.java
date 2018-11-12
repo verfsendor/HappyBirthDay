@@ -28,6 +28,7 @@ public class AutoDrawTextView extends View {
     private float startY = 0;
     boolean showPicture2;
     Paint paint;
+    private long i = 0;
 
     public AutoDrawTextView(Context context) {
         super(context);
@@ -81,7 +82,6 @@ public class AutoDrawTextView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.v("verf","invalidate onDrawing");
         recordPicture();
         if(showPicture2){
             canvas.drawPicture(picture2);
@@ -100,6 +100,7 @@ public class AutoDrawTextView extends View {
      * 将固定的表盘部分绘制在picture上进行复用
      */
     private void recordPicture(){
+        Log.v("verf","时间点 " + System.currentTimeMillis());
         Log.v("verf","recordPicture");
         if(!showPicture2){
             Canvas canvas = picture1.beginRecording(getMeasuredWidth(), getMeasuredHeight());
@@ -134,7 +135,7 @@ public class AutoDrawTextView extends View {
 
 
     public void showPoint(PositionBean positionBean){
-        Log.v("verf","view画点1 " + positionBean.getX() + " " + positionBean.getY());
+
         lastPosition = nowPosition;
         nowPosition = positionBean;
         Log.v("verf","view画点2 " + positionBean.getX() + " " + positionBean.getY());
@@ -145,7 +146,7 @@ public class AutoDrawTextView extends View {
                 startX = 0;
             }
         }
-//        invalidate();
+
         postInvalidate();
     }
 

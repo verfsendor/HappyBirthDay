@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * %日出@100,#234566,0,0,50,50@%开始开工上课就是公开课我其实就是这样觉得的但是我真的不知道怎么办法呀
  */
 public class DataManager {
+    public static Strange testStrange;
     public static ArrayList<Strange> datas = new ArrayList<>();
     public static Strange strange;
     public static boolean wait = false;
@@ -50,8 +51,9 @@ public class DataManager {
                 }
             }
             datas.add(strange);
-//            String str = new Gson().toJson(datas.get(datas.size() - 1));
-//            LogUtil.v("verf","新添加的字体 ： " + str);
+            testStrange = strange;
+            String str = new Gson().toJson(datas.get(datas.size() - 1));
+            LogUtil.v("verf","新添加的字体 ： " + key + " " + str);
         }
         CharacterManager.addStrange(strange);
         strange = new Strange();
@@ -116,8 +118,8 @@ public class DataManager {
         Log.v("verf","子线程开始绘画啦 "  + Thread.currentThread().getName() + " " + key);
         for(int i = 0; i < strange.getPositionBeans().size(); i ++) {
             try {
-                while (DataManager.wait) {
-                    Thread.currentThread().sleep(10);
+                while (wait) {
+                    Thread.currentThread().sleep(1);
                 }
                 PositionBean clone = PositionBean.clone(strange.getPositionBeans().get(i));
                 if(i == 0){
@@ -129,6 +131,45 @@ public class DataManager {
                 clone.setScaluey(scaluey);
                 view.showPoint(clone);
                 DataManager.wait = true;
+                Log.v("kkk","sending " + Thread.currentThread().getName());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public static void setTest(AutoDrawTextView view){
+        Log.v("verf","子线程开始搜索啦 "  + Thread.currentThread().getName() + " ");
+        String color = "#000000";
+        int alpha = 100;
+        int startx = -1;
+        int starty = -1;
+        int scaluex = 10;
+        int scaluey = 10;
+
+        view.setPaint(alpha,color);
+        Strange strange = testStrange;
+        if(strange == null || strange.getPositionBeans() == null){
+            return;
+        }
+        Log.v("verf","子线程开始绘画啦 ");
+        for(int i = 0; i < strange.getPositionBeans().size(); i ++) {
+            try {
+                while (wait) {
+                    Thread.currentThread().sleep(1);
+                }
+                PositionBean clone = PositionBean.clone(strange.getPositionBeans().get(i));
+                if(i == 0){
+                    clone.setCharacterStart(true);
+                }
+                clone.setStartx(startx);
+                clone.setStarty(starty);
+                clone.setScaluex(scaluex);
+                clone.setScaluey(scaluey);
+                view.showPoint(clone);
+                DataManager.wait = true;
+                Log.v("kkk","sending " + Thread.currentThread().getName());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

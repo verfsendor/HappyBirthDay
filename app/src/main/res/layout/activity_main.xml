@@ -21,11 +21,17 @@
             android:layout_weight="1"
             android:text="重置"/>
         <Button
-            android:id="@+id/btn_next"
+            android:id="@+id/btn_test"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="下一页"/>
+            android:text="看效果 "/>
+        <Button
+            android:id="@+id/btn_show"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="具体展示"/>
     </LinearLayout>
     <EditText
         android:id="@+id/edit_key"

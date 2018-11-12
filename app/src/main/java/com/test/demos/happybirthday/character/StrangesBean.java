@@ -14,4 +14,5 @@ public class StrangesBean {
     public void setStrangeArrayList(ArrayList<Strange> strangeArrayList) {
         this.strangeArrayList = strangeArrayList;
     }
+
 }

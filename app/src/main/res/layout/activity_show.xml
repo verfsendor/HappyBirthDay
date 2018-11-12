@@ -11,7 +11,13 @@
         android:text="开始画"
         android:textColor="#ffffff"
         android:background="#000"
+        android:visibility="gone"
         android:gravity="center" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="绑定"
+        android:id="@+id/btn_bind"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
