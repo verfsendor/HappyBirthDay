@@ -100,8 +100,8 @@ public class AutoDrawTextView extends View {
      * 将固定的表盘部分绘制在picture上进行复用
      */
     private void recordPicture(){
-        Log.v("verf","时间点 " + System.currentTimeMillis());
-        Log.v("verf","recordPicture");
+//        Log.v("verf","时间点 " + System.currentTimeMillis());
+//        Log.v("verf","recordPicture");
         if(!showPicture2){
             Canvas canvas = picture1.beginRecording(getMeasuredWidth(), getMeasuredHeight());
             if(picture2 != null){
@@ -138,7 +138,7 @@ public class AutoDrawTextView extends View {
 
         lastPosition = nowPosition;
         nowPosition = positionBean;
-        Log.v("verf","view画点2 " + positionBean.getX() + " " + positionBean.getY());
+//        Log.v("verf","view画点2 " + positionBean.getX() + " " + positionBean.getY());
         if(nowPosition.isCharacterStart() && lastPosition != null && lastPosition.getStartx() == -1){
             startX = startX + DataManager.windowWidth * lastPosition.getScaluex()/100;
             if((startX + DataManager.windowWidth * nowPosition.getScaluex()/100) > DataManager.windowWidth){

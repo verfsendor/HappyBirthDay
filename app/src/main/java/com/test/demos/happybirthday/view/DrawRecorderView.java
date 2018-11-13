@@ -21,6 +21,7 @@ public class DrawRecorderView extends SurfaceView {
     Picture picture2;
     boolean showPicture2;
     Paint paint;
+    Paint linepaint;
     public DrawRecorderView(Context context) {
         super(context);
         init();
@@ -45,6 +46,13 @@ public class DrawRecorderView extends SurfaceView {
         paint.setColor(Color.parseColor("#234567"));
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
+
+        linepaint = new Paint();
+        linepaint.setStrokeWidth(8f);
+        linepaint.setTextSize(30);
+        linepaint.setColor(Color.parseColor("#f0f0f0"));
+        linepaint.setAntiAlias(true);
+        linepaint.setStyle(Paint.Style.FILL);
     }
 
     PositionBean positionBean;
@@ -94,6 +102,8 @@ public class DrawRecorderView extends SurfaceView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawLine(0,(getMeasuredHeight() - getMeasuredWidth())/2, getMeasuredWidth(),(getMeasuredHeight() - getMeasuredWidth())/2,linepaint) ;
+        canvas.drawLine(0,getMeasuredHeight() - (getMeasuredHeight() - getMeasuredWidth())/2, getMeasuredWidth(),getMeasuredHeight() - (getMeasuredHeight() - getMeasuredWidth())/2,linepaint) ;
         recordPicture();
         if(showPicture2){
             canvas.drawPicture(picture2);

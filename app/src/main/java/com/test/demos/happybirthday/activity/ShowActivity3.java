@@ -46,6 +46,10 @@ public class ShowActivity3 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         autoDrawTextView = (AutoDrawTextView)findViewById(R.id.show_view);
+        Intent intent = new Intent(ShowActivity3.this, ShowTestService.class);
+        startService(intent);
+        bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE);
+        findViewById(R.id.btn_bind).setVisibility(View.GONE);
         findViewById(R.id.btn_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,17 +60,6 @@ public class ShowActivity3 extends AppCompatActivity {
                 }
             }
         });
-        findViewById(R.id.btn_bind).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("verf","开始绑定");
-                Intent intent = new Intent(ShowActivity3.this, ShowTestService.class);
-                startService(intent);
-                bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE);
-            }
-        });
-
-
     }
 
     @Override

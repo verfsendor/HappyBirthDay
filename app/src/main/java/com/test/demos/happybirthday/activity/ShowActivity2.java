@@ -50,28 +50,20 @@ public class ShowActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show);
         autoDrawTextView = (AutoDrawTextView)findViewById(R.id.show_view);
+        Intent intent = new Intent(ShowActivity2.this, ShowService.class);
+        startService(intent);
+        bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE);
         findViewById(R.id.btn_show).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if(showService != null){
-                    showService.set(autoDrawTextView,"祝你朱生日乐天");
+                    showService.set(autoDrawTextView,"认识");
                 }else {
                     Toast.makeText(ShowActivity2.this,"尚未建立绑定",Toast.LENGTH_LONG).show();
                 }
             }
         });
-        findViewById(R.id.btn_bind).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.v("verf","开始绑定");
-                Intent intent = new Intent(ShowActivity2.this, ShowService.class);
-                startService(intent);
-                bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE);
-            }
-        });
-
-
     }
 
     @Override

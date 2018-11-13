@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawRecorderView.refreshRecord();
-                key.setText("");
                 DataManager.strange = null;
             }
         });
@@ -56,9 +55,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ShowActivity2.class));
             }
         });
+        findViewById(R.id.btn_next).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("verf","下一页");
+                drawRecorderView.refreshRecord();
+                key.setText("");
+                DataManager.strange = null;
+            }
+        });
         findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                DataManager.addStrange(key.getText().toString().trim());
                 startActivity(new Intent(MainActivity.this, ShowActivity3.class));
             }
         });

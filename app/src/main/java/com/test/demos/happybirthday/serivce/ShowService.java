@@ -22,9 +22,7 @@ public class ShowService extends IntentService {
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        Log.v("verf","ShowService onHandleIntent out*******************************************************" );
         while (true){
-            Log.v("verf","ShowService setstring out" );
             setString();
         }
     }
@@ -62,4 +60,9 @@ public class ShowService extends IntentService {
         drawTxt = string;
     }
 
+    @Override
+    public void onDestroy() {
+        Log.v("verf","ShowService onDestroy ");
+        super.onDestroy();
+    }
 }
