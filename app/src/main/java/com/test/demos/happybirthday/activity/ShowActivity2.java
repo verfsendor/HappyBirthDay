@@ -58,7 +58,7 @@ public class ShowActivity2 extends AppCompatActivity {
             public void onClick(View v) {
 
                 if(showService != null){
-                    showService.set(autoDrawTextView,"认识");
+                    showService.set(autoDrawTextView,"末陪着费两周");
                 }else {
                     Toast.makeText(ShowActivity2.this,"尚未建立绑定",Toast.LENGTH_LONG).show();
                 }
