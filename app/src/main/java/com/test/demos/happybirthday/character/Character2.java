@@ -17,6 +17,16 @@ public class Character2 {
         if(bean2 != null){
             CharacterManager.addStranges(bean2.getStrangeArrayList());
         }
+
+
+    }
+
+
+    private static void addString(String txt){
+        StrangesBean bean = new Gson().fromJson(txt, StrangesBean.class);
+        if(bean != null){
+            CharacterManager.addStranges(bean.getStrangeArrayList());
+        }
     }
 
 }
