@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         next = (Button)findViewById(R.id.btn_show);
         key = (EditText)findViewById(R.id.edit_key);
         drawRecorderView = (DrawRecorderView)findViewById(R.id.record_view);
+        drawRecorderView.setBgColor(true);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

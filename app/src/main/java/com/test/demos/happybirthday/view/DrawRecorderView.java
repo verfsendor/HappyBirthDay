@@ -22,6 +22,7 @@ public class DrawRecorderView extends SurfaceView {
     boolean showPicture2;
     Paint paint;
     Paint linepaint;
+    String bgColor = "#ffffff";
     public DrawRecorderView(Context context) {
         super(context);
         init();
@@ -92,7 +93,7 @@ public class DrawRecorderView extends SurfaceView {
         if(lastPosition != null) {
             float x = valuex - lastPosition.getX();
             float y = valuey - lastPosition.getY();
-            if (Math.sqrt(x * x + y * y) < 10){
+            if (Math.sqrt(x * x + y * y) < 5){
                 return false;
             }
         }
@@ -102,8 +103,9 @@ public class DrawRecorderView extends SurfaceView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawLine(0,(getMeasuredHeight() - getMeasuredWidth())/2, getMeasuredWidth(),(getMeasuredHeight() - getMeasuredWidth())/2,linepaint) ;
-        canvas.drawLine(0,getMeasuredHeight() - (getMeasuredHeight() - getMeasuredWidth())/2, getMeasuredWidth(),getMeasuredHeight() - (getMeasuredHeight() - getMeasuredWidth())/2,linepaint) ;
+        canvas.drawColor(Color.parseColor(bgColor));
+//        canvas.drawLine(0,(getMeasuredHeight() - getMeasuredWidth())/2, getMeasuredWidth(),(getMeasuredHeight() - getMeasuredWidth())/2,linepaint) ;
+//        canvas.drawLine(0,getMeasuredHeight() - (getMeasuredHeight() - getMeasuredWidth())/2, getMeasuredWidth(),getMeasuredHeight() - (getMeasuredHeight() - getMeasuredWidth())/2,linepaint) ;
         recordPicture();
         if(showPicture2){
             canvas.drawPicture(picture2);
@@ -141,6 +143,16 @@ public class DrawRecorderView extends SurfaceView {
                 canvas.drawLine(lastPosition.getX(),lastPosition.getY(), nowPosition.getX(), nowPosition.getY(), paint);
             }
             picture2.endRecording();
+        }
+    }
+
+    public void setBgColor(boolean black){
+        if(black){
+            paint.setColor(Color.parseColor("#ffffff"));
+            bgColor = "#000000";
+        }else {
+            paint.setColor(Color.parseColor("#000000"));
+            bgColor = "#ffffff";
         }
     }
 

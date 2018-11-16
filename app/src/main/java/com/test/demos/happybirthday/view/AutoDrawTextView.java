@@ -28,6 +28,7 @@ public class AutoDrawTextView extends View {
     private float startY = 0;
     boolean showPicture2;
     Paint paint;
+    String bgColor = "#ffffff";
     private long i = 0;
 
     public AutoDrawTextView(Context context) {
@@ -82,6 +83,7 @@ public class AutoDrawTextView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawColor(Color.parseColor(bgColor));
         recordPicture();
         if(showPicture2){
             canvas.drawPicture(picture2);
@@ -108,10 +110,23 @@ public class AutoDrawTextView extends View {
                 canvas.drawPicture(picture2);
             }
             if(lastPosition != null && nowPosition != null && !nowPosition.isStart()){
+                float fromx,fromy,tox,toy;
                 if(nowPosition.getStartx() != -1){
-                    canvas.drawLine(nowPosition.getStartx() + lastPosition.getX(),nowPosition.getY() + lastPosition.getY(), nowPosition.getStartx() + nowPosition.getX(), nowPosition.getY() + nowPosition.getY(), paint);
+                    fromx = nowPosition.getStartx() + lastPosition.getX();
+                    fromy = nowPosition.getStarty() + lastPosition.getY();
+                    tox = nowPosition.getStartx() + nowPosition.getX();
+                    toy = nowPosition.getStarty() + nowPosition.getY();
                 }else {
-                    canvas.drawLine(startX + lastPosition.getX(),startY + lastPosition.getY(), startX + nowPosition.getX(), startY + nowPosition.getY(), paint);
+                    fromx = startX + lastPosition.getX();
+                    fromy = startY + lastPosition.getY();
+                    tox = startX + nowPosition.getX();
+                    toy = startY + nowPosition.getY();
+                }
+                float x1 = Math.abs(fromx - tox);
+                float y1 = Math.abs(fromy - toy);
+                double xy = Math.sqrt(x1 * x1 + y1 * y1);
+                if(xy < 100){
+                    canvas.drawLine(fromx,fromy,tox,toy,paint);
                 }
             }
 
@@ -123,10 +138,23 @@ public class AutoDrawTextView extends View {
                 canvas.drawPicture(picture1);
             }
             if(lastPosition != null && nowPosition != null && !nowPosition.isStart()){
+                float fromx,fromy,tox,toy;
                 if(nowPosition.getStartx() != -1){
-                    canvas.drawLine(nowPosition.getStartx() +lastPosition.getX(),nowPosition.getY() + lastPosition.getY(), nowPosition.getStartx() + nowPosition.getX(), nowPosition.getY() + nowPosition.getY(), paint);
+                    fromx = nowPosition.getStartx() + lastPosition.getX();
+                    fromy = nowPosition.getStarty() + lastPosition.getY();
+                    tox = nowPosition.getStartx() + nowPosition.getX();
+                    toy = nowPosition.getStarty() + nowPosition.getY();
                 }else {
-                    canvas.drawLine(startX +lastPosition.getX(),startY + lastPosition.getY(), startX + nowPosition.getX(), startY + nowPosition.getY(), paint);
+                    fromx = startX + lastPosition.getX();
+                    fromy = startY + lastPosition.getY();
+                    tox = startX + nowPosition.getX();
+                    toy = startY + nowPosition.getY();
+                }
+                float x1 = Math.abs(fromx - tox);
+                float y1 = Math.abs(fromy - toy);
+                double xy = Math.sqrt(x1 * x1 + y1 * y1);
+                if(xy < 100){
+                    canvas.drawLine(fromx,fromy,tox,toy,paint);
                 }
             }
             picture2.endRecording();
@@ -135,7 +163,11 @@ public class AutoDrawTextView extends View {
 
 
     public void showPoint(PositionBean positionBean){
-
+        if("换行".equals(positionBean.getAction())){
+            startY = startY + DataManager.windowHeight * lastPosition.getScaluey()/100 - 50;
+            startX = DataManager.windowWidth * lastPosition.getScaluey()/100;
+            return;
+        }
         lastPosition = nowPosition;
         nowPosition = positionBean;
 //        Log.v("verf","view画点2 " + positionBean.getX() + " " + positionBean.getY());
@@ -157,5 +189,16 @@ public class AutoDrawTextView extends View {
     public void resetPaint(int alpha, int color){
         paint.setAlpha(100);
         paint.setColor(Color.parseColor("#000000"));
+    }
+
+
+    public void setBg(boolean black){
+        if(black){
+            paint.setColor(Color.parseColor("#ffffff"));
+            bgColor = "#000000";
+        }else {
+            paint.setColor(Color.parseColor("#000000"));
+            bgColor = "#ffffff";
+        }
     }
 }

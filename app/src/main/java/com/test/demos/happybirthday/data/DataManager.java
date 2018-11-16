@@ -26,6 +26,11 @@ public class DataManager {
     public static MyDrawThread myDrawThread = new MyDrawThread("myDrawThread");
     public static int windowWidth;
     public static int windowHeight;
+
+
+    public static int scalueX = 70;
+    public static int scalueY = 70;
+
     public static void init(Context context){
         myDrawThread.start();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -52,8 +57,7 @@ public class DataManager {
             }
             datas.add(strange);
             testStrange = strange;
-            String str = new Gson().toJson(datas.get(datas.size() - 1));
-            LogUtil.v("verf","新添加的字体 ： " + key + " " + str);
+            Strange.LogoutStrange(strange);
         }
         CharacterManager.addStrange(strange);
         strange = new Strange();
@@ -89,17 +93,18 @@ public class DataManager {
     public static void searchKey(AutoDrawTextView view,String key){
         Log.v("verf","子线程开始搜索啦 "  + Thread.currentThread().getName() + " " + key);
         String searStr = key;
-        String color = "#000000";
+        String color = "#ffffff";
         int alpha = 100;
         int startx = -1;
         int starty = -1;
-        int scaluex = 10;
-        int scaluey = 10;
+        int scaluex = scalueX;
+        int scaluey = scalueY;
         if(key.length() > 1 && key.contains("@")){
            String [] strings = key.split("@");
            searStr = strings[0];
            if(strings != null && strings.length >= 2 && strings[1].length() > 0 && strings[1].contains(",")){
                String [] parms = strings[1].split(",");
+               Log.v("verf","解析结果1 " + parms.length);
                if(parms != null && parms.length == 6){
                    color = parms[1];
                    alpha = Integer.parseInt(parms[0]);
@@ -107,11 +112,19 @@ public class DataManager {
                    starty = Integer.parseInt(parms[3]);
                    scaluex = Integer.parseInt(parms[4]);
                    scaluey = Integer.parseInt(parms[5]);
+                   setDemison(scalueX,scalueY);
+                   Log.v("verf","解析结果2 " + color + " " + alpha + " " + startx+ " " + starty + " " + scaluex + " " + scaluey);
                }
            }
         }
         view.setPaint(alpha,color);
         Strange strange = CharacterManager.getStrange(searStr);
+        if("/n".equals(searStr)){
+            PositionBean positionBean = new PositionBean(0,0);
+            positionBean.setAction("换行");
+            view.showPoint(positionBean);
+            return;
+        }
         if(strange == null || strange.getPositionBeans() == null){
             return;
         }
@@ -145,8 +158,8 @@ public class DataManager {
         int alpha = 100;
         int startx = -1;
         int starty = -1;
-        int scaluex = 10;
-        int scaluey = 10;
+        int scaluex = scalueX;
+        int scaluey = scalueY;
 
         view.setPaint(alpha,color);
         Strange strange = testStrange;
@@ -174,5 +187,10 @@ public class DataManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void setDemison(int x, int y){
+        scalueX = x;
+        scalueY = y;
     }
 }

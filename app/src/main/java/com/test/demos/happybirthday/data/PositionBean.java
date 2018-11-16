@@ -1,5 +1,7 @@
 package com.test.demos.happybirthday.data;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 public class PositionBean implements Serializable {
@@ -7,6 +9,7 @@ public class PositionBean implements Serializable {
     private float y;
     private boolean start;
     private boolean characterStart;
+    private String action;
     private long time;
     private int startx = -1;
     private int starty = -1;
@@ -59,6 +62,14 @@ public class PositionBean implements Serializable {
         return y;
     }
 
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
     public void setY(float y) {
         this.y = y;
     }
@@ -72,7 +83,7 @@ public class PositionBean implements Serializable {
     }
 
     public int getStartx() {
-        return startx;
+        return DataManager.windowWidth * startx /100;
     }
 
     public void setStartx(int startx) {
@@ -80,7 +91,7 @@ public class PositionBean implements Serializable {
     }
 
     public int getStarty() {
-        return starty;
+        return DataManager.windowHeight * starty /100;
     }
 
     public void setStarty(int starty) {
