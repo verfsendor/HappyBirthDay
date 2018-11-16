@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.test.demos.happybirthday.DrawFinsih;
 import com.test.demos.happybirthday.R;
 import com.test.demos.happybirthday.data.Constants;
 import com.test.demos.happybirthday.data.DataManager;
@@ -33,7 +34,12 @@ public class ShowActivity1 extends AppCompatActivity {
                 super.handleMessage(msg);
                 Log.v("kkk","handler receive i*****");
                 String string = msg.getData().getString(Constants.SHOW_STR,"");
-                DataManager.sendString(autoDrawTextView,string);
+                DataManager.sendString(autoDrawTextView, string, new DrawFinsih() {
+                    @Override
+                    public void finish() {
+
+                    }
+                });
             }
         };
         findViewById(R.id.btn_show).setOnClickListener(new View.OnClickListener() {

@@ -6,12 +6,14 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.test.demos.happybirthday.DrawFinsih;
 import com.test.demos.happybirthday.data.DataManager;
 import com.test.demos.happybirthday.view.AutoDrawTextView;
 
 public class ShowService extends IntentService {
      private AutoDrawTextView autoDrawTextView;
      private String drawTxt = "";
+     private DrawFinsih drawFinsih;
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
      *
@@ -48,16 +50,17 @@ public class ShowService extends IntentService {
     private void setString(){
         if(autoDrawTextView != null && drawTxt != null && drawTxt.length() > 0) {
             Log.v("verf","ShowService setstring " + Thread.currentThread().getName());
-            DataManager.sendString(autoDrawTextView, drawTxt);
+            DataManager.sendString(autoDrawTextView, drawTxt,drawFinsih);
             autoDrawTextView = null;
             drawTxt = "";
         }
     }
 
-    public void set(AutoDrawTextView view, String string){
+    public void set(AutoDrawTextView view, String string,DrawFinsih finsih){
         Log.v("verf","ShowService set " + view + " " + string);
         autoDrawTextView = view;
         drawTxt = string;
+        this.drawFinsih = finsih;
     }
 
     @Override

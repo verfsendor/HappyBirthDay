@@ -9,7 +9,6 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.test.demos.happybirthday.DrawFinsih;
@@ -20,7 +19,7 @@ import com.test.demos.happybirthday.view.AutoDrawTextView;
 /**
  * 通过IntentService来实现,测试具体实现
  */
-public class SenceActivity extends AppCompatActivity {
+public class  SenceActivityTwo extends AppCompatActivity {
     AutoDrawTextView autoDrawTextView;
     ShowService showService;
 
@@ -44,30 +43,36 @@ public class SenceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show);
+        setContentView(R.layout.activity_show_sence);
         autoDrawTextView = (AutoDrawTextView)findViewById(R.id.show_view);
-        Intent intent = new Intent(SenceActivity.this, ShowService.class);
+        Intent intent = new Intent(SenceActivityTwo.this, ShowService.class);
         startService(intent);
-        autoDrawTextView.setBg(true);
-        bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE);
-        findViewById(R.id.btn_show).setOnClickListener(new View.OnClickListener() {
+        autoDrawTextView.setBg(true);//
+        bindService(intent,mServiceConnection,Context.BIND_AUTO_CREATE);//%d东奕@256,#ffffff,40,0,50,50@%
+        final String txt = "%d奕@256,#ffffff,10,0,17,17@%" + "%d生@256,#ffffff,25,0,20,20@%" + "%d日@256,#ffffff,40,0,20,20@%" + "%d快@256,#ffffff,58,0,20,20@%" +"%d乐@256,#ffffff,73,0,21,21@%"
+                + "%d东奕@256,#ffffff,0,10,100,100@%";
+        new Thread(new Runnable() {
             @Override
-            public void onClick(View v) {
+            public void run() {
+                try {
+                    Thread.currentThread().sleep(200);
+                    if(showService != null){
+                        //     * %日出@100,#234566,0,0,50,50@%
+                        showService.set(autoDrawTextView, txt, new DrawFinsih() {
+                            @Override
+                            public void finish() {
+                                startActivity(new Intent(SenceActivityTwo.this,SenceActivityThree.class));
+                            }
+                        });
+                    }else {
+                        Toast.makeText(SenceActivityTwo.this,"尚未建立绑定",Toast.LENGTH_LONG).show();
+                    }
 
-                if(showService != null){
-                    //     * %日出@100,#234566,0,0,50,50@%
-                    showService.set(autoDrawTextView, "可爱的阿奕宝贝:%/n% 生日%happy%！想了很久很久还是不知道该送什么,东东准备了好多天,想来还是写个%app%吧,独家研制的会自己写字的,这个上面的每一个字都是我一个一个录数据到字体库里面再播放出来的.然后花费了好多脑细胞和两个周末和%10%几个午休和晚上的时间,祝我的阿奕永远开心快乐,东东会永远陪着你.",
-                            new DrawFinsih() {
-                                @Override
-                                public void finish() {
-
-                                }
-                            });
-                }else {
-                    Toast.makeText(SenceActivity.this,"尚未建立绑定",Toast.LENGTH_LONG).show();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-        });
+        }).start();
     }
 
     @Override
@@ -76,9 +81,9 @@ public class SenceActivity extends AppCompatActivity {
         Log.v("kkk","showActivity2 ondestory");
         try {
             unbindService(mServiceConnection);
-            stopService(new Intent(SenceActivity.this,ShowService.class));
+            stopService(new Intent(SenceActivityTwo.this,ShowService.class));
         } catch (Exception e) {
-            Toast.makeText(SenceActivity.this,"请先绑定服务再执行解绑",Toast.LENGTH_LONG).show();
+            Toast.makeText(SenceActivityTwo.this,"请先绑定服务再执行解绑",Toast.LENGTH_LONG).show();
         }
     }
 

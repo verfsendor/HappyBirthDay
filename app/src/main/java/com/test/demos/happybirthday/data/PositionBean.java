@@ -83,6 +83,9 @@ public class PositionBean implements Serializable {
     }
 
     public int getStartx() {
+        if(startx == -1){
+            return -1;
+        }
         return DataManager.windowWidth * startx /100;
     }
 
@@ -91,6 +94,9 @@ public class PositionBean implements Serializable {
     }
 
     public int getStarty() {
+        if(starty == -1){
+            return -1;
+        }
         return DataManager.windowHeight * starty /100;
     }
 

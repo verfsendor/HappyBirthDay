@@ -117,6 +117,7 @@ public class AutoDrawTextView extends View {
                     tox = nowPosition.getStartx() + nowPosition.getX();
                     toy = nowPosition.getStarty() + nowPosition.getY();
                 }else {
+                    Log.v("zoom","startxy 是-1");
                     fromx = startX + lastPosition.getX();
                     fromy = startY + lastPosition.getY();
                     tox = startX + nowPosition.getX();
@@ -145,6 +146,7 @@ public class AutoDrawTextView extends View {
                     tox = nowPosition.getStartx() + nowPosition.getX();
                     toy = nowPosition.getStarty() + nowPosition.getY();
                 }else {
+                    Log.v("zoom","startxy 是-1");
                     fromx = startX + lastPosition.getX();
                     fromy = startY + lastPosition.getY();
                     tox = startX + nowPosition.getX();
@@ -163,6 +165,7 @@ public class AutoDrawTextView extends View {
 
 
     public void showPoint(PositionBean positionBean){
+        Log.v("verf","展示point " + positionBean.getStartx() + " " + positionBean.getStarty());
         if("换行".equals(positionBean.getAction())){
             startY = startY + DataManager.windowHeight * lastPosition.getScaluey()/100 - 50;
             startX = DataManager.windowWidth * lastPosition.getScaluey()/100;

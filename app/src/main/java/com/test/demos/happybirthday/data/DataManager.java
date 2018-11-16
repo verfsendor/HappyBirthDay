@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.google.gson.Gson;
+import com.test.demos.happybirthday.DrawFinsih;
 import com.test.demos.happybirthday.LogUtil;
 import com.test.demos.happybirthday.MyDrawThread;
 import com.test.demos.happybirthday.character.CharacterManager;
@@ -26,10 +27,8 @@ public class DataManager {
     public static MyDrawThread myDrawThread = new MyDrawThread("myDrawThread");
     public static int windowWidth;
     public static int windowHeight;
-
-
-    public static int scalueX = 70;
-    public static int scalueY = 70;
+    public static int scalueX = 10;
+    public static int scalueY = 10;
 
     public static void init(Context context){
         myDrawThread.start();
@@ -67,7 +66,7 @@ public class DataManager {
         strange = new Strange();
     }
 
-    public static void sendString(AutoDrawTextView view, String str){
+    public static void sendString(AutoDrawTextView view, String str,DrawFinsih finsih){
         Log.v("verf","子线程接收到数据啦 "  + Thread.currentThread().getName() + " " + str);
         for(int i = 0; i < str.length(); i ++){
             if(str.charAt(i) == '%'&& showStranges.length() == 0){
@@ -85,6 +84,9 @@ public class DataManager {
             }else {
                 searchKey(view,"" + str.charAt(i));
             }
+        }
+        if(finsih != null){
+            finsih.finish();
         }
     }
     /**
@@ -142,6 +144,7 @@ public class DataManager {
                 clone.setStarty(starty);
                 clone.setScaluex(scaluex);
                 clone.setScaluey(scaluey);
+                Log.v("zoom","设置start协议 " + startx + " " + starty);
                 view.showPoint(clone);
                 DataManager.wait = true;
                 Log.v("kkk","sending " + Thread.currentThread().getName());

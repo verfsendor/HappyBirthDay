@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.test.demos.happybirthday.DrawFinsih;
 import com.test.demos.happybirthday.R;
 import com.test.demos.happybirthday.data.Constants;
 import com.test.demos.happybirthday.data.DataManager;
@@ -62,9 +63,14 @@ public class ShowActivity2 extends AppCompatActivity {
                     //     * %日出@100,#234566,0,0,50,50@%
 //                    showService.set(autoDrawTextView,"可爱的阿奕宝贝:%/n% 生日%happy%！想了很久很久还是不知道该送什么,东东准备了好多天,想来还是写个%app%吧,独家研制的会自己写字的,这个上面的每一个字都是我一个一个录数据到字体库里面再播放出来的.然后花费了好多脑细胞和两个周末和%10%几个午休和晚上的时间,祝我的阿奕永远开心快乐,东东会永远陪着你.");
                       showService.set(autoDrawTextView,
-                              "%d快@256,#ffffff,40,0,20,20@%" +
-                              "%d乐@256,#ffffff,60,0,30,30@%" +
-                              "%d生日快乐@256,#ffffff,0,10,70,70@%");
+                              "%d东奕@256,#ffffff,40,0,50,50@%" +
+                                      "%d乐@256,#ffffff,60,0,30,30@%" +
+                                      "%d生日快乐@256,#ffffff,0,10,70,70@%", new DrawFinsih() {
+                                  @Override
+                                  public void finish() {
+
+                                  }
+                              });
                       //"%d奕@256,#ffffff,0,0,20,20@%"
                 }else {
                     Toast.makeText(ShowActivity2.this,"尚未建立绑定",Toast.LENGTH_LONG).show();
